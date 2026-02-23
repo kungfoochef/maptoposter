@@ -5,6 +5,35 @@ Generate beautiful, minimalist map posters for any city in the world.
 <img src="posters/singapore_neon_cyberpunk_20260118_153328.png" width="250">
 <img src="posters/dubai_midnight_blue_20260118_140807.png" width="250">
 
+## 3D Printing Extension
+
+This fork adds **`create_map_stl.py`** — a companion script that generates multi-color FDM 3D print files from the same OSM vector data, with no rasterization step.
+
+It produces a set of SVG layers and a ready-to-render OpenSCAD `.scad` file. Open the `.scad` in OpenSCAD, press F6 to render, export to STL, and add filament-change pauses in your slicer at the printed Z heights.
+
+```bash
+python create_map_stl.py \
+    --city "Buffalo" --country "USA" \
+    --display-city "University at Buffalo" --display-country "North Campus" \
+    --latitude 43.0019 --longitude -78.7877\
+    --distance 6000 --theme ocean
+```
+
+**Output layers (default heights):**
+
+| Z (mm) | Layer |
+|--------|-------|
+| 0 – 1.6 | Background plate |
+| 1.6 – 2.0 | Water |
+| 2.0 – 2.4 | Parks |
+| 2.4 – 2.8 | Minor roads |
+| 2.8 – 3.2 | Major roads |
+| 3.2 – 3.6 | Title text |
+
+See [CREATE_MAP_STL.md](CREATE_MAP_STL.md) for full documentation, design decisions, and solutions to the OpenSCAD/CGAL mesh issues encountered along the way.
+
+---
+
 ## Examples
 
 | Country      | City           | Theme           | Poster |
@@ -269,9 +298,18 @@ map_poster/
 └── README.md
 ```
 
+
 ## Hacker's Guide
 
 Quick reference for contributors who want to extend or modify the script.
+
+### Contributors Guide
+
+- Bug fixes are welcomed
+- Don't submit user interface (web/desktop)
+- Don't Dockerize for now
+- If you vibe code any fix please test it and see before and after version of poster
+- Before embarking on a big feature please ask in Discussions/Issue if it will be merged
 
 ### Architecture Overview
 

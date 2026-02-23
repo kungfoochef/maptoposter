@@ -33,3 +33,7 @@ test_venv/
 htmlcov/
 .coverage
 .pytest_cache/
+
+# Generated output (posters, STL layers, OpenSCAD files)
+posters/
+stl_output/
